@@ -1,13 +1,16 @@
 package com.example.mislugares2022.presentacion;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mislugares2022.R;
 import com.example.mislugares2022.aplicacion.Aplicacion;
+import com.example.mislugares2022.casosdeuso.CasoDeUsoPermisos;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.adaptadores.AdaptadorLugares;
+import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.example.mislugares2022.modelo.LugaresVector;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -24,13 +27,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    public static RepositorioLugares repositorioLugares = new LugaresVector();
+    //public static RepositorioLugares repositorioLugares = new LugaresVector();
 
     //private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     public AdaptadorLugares adaptador;
-    private RepositorioLugares lugares = new LugaresVector();
     private CasosUsoLugar usoLugar;
+    private int id;
+    private Lugar lugar;
+    private RepositorioLugares lugares;
+    final static int RESULTADO_EDITAR = 1;
 
     /*public static void main(String[] args) {
         RepositorioLugares lugares = new LugaresVector();
@@ -49,19 +55,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
-
-
+////////////////////////////////////
+        /*
+        Bundle extras = getIntent().getExtras();
+        //coge el id para obtener el lugar que le indicamos
+        lugares =((Aplicacion) getApplication()).getLugares();
+        id = extras.getInt("id", -1);
+        lugar = RepositorioLugares.getElementoPorPosicion(id);
+        //lugar = lugares.getElementoPorPosicion(id);
+        CasoDeUsoPermisos.solicitarPermiso(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                "Necesita permisos de almacenamiento para añadir fotografías", 1);
+        */
+//////////////////////////////////
         //recycler
 
-        lugares = ((Aplicacion) getApplication()).lugares;
+        //lugares = ((Aplicacion) getApplication()).lugares;
+        lugares = (LugaresVector) ((Aplicacion) getApplication()).getLugares();
         adaptador = ((Aplicacion) getApplication()).adaptador;
         usoLugar = new CasosUsoLugar(this, lugares);
 
+
         recyclerView = findViewById(R.id.recycler_view);
+        //adaptador = new AdaptadorLugares(lugares,this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adaptador);
-
 
         adaptador.setOnItemClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 usoLugar.mostrar(MainActivity.this, pos);
             }
         });
+
 
     }
 
@@ -122,20 +142,16 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, AcercaDeActivity.class);

@@ -12,7 +12,7 @@ import com.example.mislugares2022.presentacion.MainActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
 
 public class CasoDeUsoPermisos {
-    /*
+/*
     public static int SOLICITAR_PERMISO_ALMACENAMIENTO = 2;
     String permisos[] = {
             Manifest.permission.CAMERA,
@@ -59,9 +59,7 @@ public class CasoDeUsoPermisos {
     public static void solicitarPermisoAlmacenamiento(Activity actividad){
 
     }
-    public static boolean hayPermisoAlmacenamiento(Activity actividad){
-
-
+    public boolean hayPermisoAlmacenamiento(Activity actividad){
         return (ActivityCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED);
     }
 */

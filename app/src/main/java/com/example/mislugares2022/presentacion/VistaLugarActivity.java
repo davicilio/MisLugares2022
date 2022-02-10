@@ -163,8 +163,10 @@ public class VistaLugarActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {//pagina 174
         switch (item.getItemId()) {
             case R.id.accion_compartir:
+                usoLugar.compartir(lugar);
                 return true;
             case R.id.accion_llegar:
+                usoLugar.verMapa(lugar);
                 return true;
             case R.id.accion_editar:
                 return true;
@@ -175,6 +177,21 @@ public class VistaLugarActivity extends AppCompatActivity {
         }
     }
 
+
+    public void verMapa(View view) {
+        usoLugar.verMapa(lugar);
+    }
+
+    public void llamarTelefono(View view) {
+        usoLugar.llamarTelefono(lugar);
+    }
+
+    public void verPgWeb(View view) {
+        usoLugar.verPgWeb(lugar);
+    }
+
+
+
     /* PONER PARA QUE SE QUEDE GUARDADA LA VALORACIÓN
         @Override
         protected void onResume(){
@@ -182,8 +199,6 @@ public class VistaLugarActivity extends AppCompatActivity {
             adaptador.notifyDataSetChanged();
         }
         */
-    void inicializarListener() {
-        //LinearLayout lmap = findViewById(R.id.LinearMap);
-    }
+
 
 }
