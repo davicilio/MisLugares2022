@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mislugares2022.R;
+import com.example.mislugares2022.aplicacion.Aplicacion;
+import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.LugaresVector;
 import com.example.mislugares2022.modelo.RepositorioLugares;
@@ -22,6 +24,7 @@ public class AdaptadorLugares extends
     protected LugaresVector lugares;
     protected LayoutInflater inflador;
     protected View.OnClickListener onClickListener;
+
 
     // Lista de lugares a mostrar
     public AdaptadorLugares(LugaresVector lugares, Context contexto) {
@@ -47,10 +50,62 @@ public class AdaptadorLugares extends
             direccion = itemView.findViewById(R.id.direccion);
             foto = itemView.findViewById(R.id.foto);
             valoracion = itemView.findViewById(R.id.valoracion);
-            //distancia = itemView.findViewById(R.id.distancia);  TODO
+            distancia = itemView.findViewById(R.id.distancia);
         }
-        // Personalizamos un ViewHolder a partir de un lugar
 
+        // Personalizamos un ViewHolder a partir de un lugar
+        public void personaliza(ViewHolder holder, Lugar lugar) {
+            holder.nombre.setText(lugar.getNombre());
+            holder.direccion.setText(lugar.getDireccion());
+            int id = R.drawable.otros;
+            switch (lugar.getTipo()) {
+                case RESTAURANTE:
+                    id = R.drawable.restaurante;
+                    break;
+                case BAR:
+                    id = R.drawable.bar;
+                    break;
+                case COPAS:
+                    id = R.drawable.copas;
+                    break;
+                case ESPECTACULO:
+                    id = R.drawable.espectaculos;
+                    break;
+                case HOTEL:
+                    id = R.drawable.hotel;
+                    break;
+                case COMPRAS:
+                    id = R.drawable.compras;
+                    break;
+                case EDUCACION:
+                    id = R.drawable.educacion;
+                    break;
+                case DEPORTE:
+                    id = R.drawable.deporte;
+                    break;
+                case NATURALEZA:
+                    id = R.drawable.naturaleza;
+                    break;
+                case GASOLINERA:
+                    id = R.drawable.gasolinera;
+                    break;
+            }
+            holder.foto.setImageResource(id);
+            holder.foto.setScaleType(ImageView.ScaleType.FIT_END);
+            holder.valoracion.setRating(lugar.getValoracion());
+
+            GeoPunto pos = ((Aplicacion) itemView.getContext().getApplicationContext())
+                    .posicionActual;
+            if (pos.equals(GeoPunto.SIN_POSICION) ||
+                    lugar.getPosicion().equals(GeoPunto.SIN_POSICION)) {
+                distancia.setText("... Km");
+            } else {
+                int d = (int) pos.distancia(lugar.getPosicion());
+                if (d < 2000) distancia.setText(d + " m");
+                else distancia.setText(d / 1000 + " Km");
+            }
+
+        }
     }
 
     @NonNull
@@ -74,48 +129,9 @@ public class AdaptadorLugares extends
     @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
         Lugar lugar = RepositorioLugares.getElementoPorPosicion(posicion);
-        personaliza(holder, lugar);
+        holder.personaliza(holder, lugar);
     }
 
-    public void personaliza(ViewHolder holder, Lugar lugar) {
-        holder.nombre.setText(lugar.getNombre());
-        holder.direccion.setText(lugar.getDireccion());
-        int id = R.drawable.otros;
-        switch (lugar.getTipo()) {
-            case RESTAURANTE:
-                id = R.drawable.restaurante;
-                break;
-            case BAR:
-                id = R.drawable.bar;
-                break;
-            case COPAS:
-                id = R.drawable.copas;
-                break;
-            case ESPECTACULO:
-                id = R.drawable.espectaculos;
-                break;
-            case HOTEL:
-                id = R.drawable.hotel;
-                break;
-            case COMPRAS:
-                id = R.drawable.compras;
-                break;
-            case EDUCACION:
-                id = R.drawable.educacion;
-                break;
-            case DEPORTE:
-                id = R.drawable.deporte;
-                break;
-            case NATURALEZA:
-                id = R.drawable.naturaleza;
-                break;
-            case GASOLINERA:
-                id = R.drawable.gasolinera;
-                break;
-        }
-        holder.foto.setImageResource(id);
-        holder.foto.setScaleType(ImageView.ScaleType.FIT_END);
-        holder.valoracion.setRating(lugar.getValoracion());
-    }
+
 }
 

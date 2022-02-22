@@ -41,7 +41,7 @@ public class CasosUsoLugar {
     public static void mostrar(Activity actividad, int id) {
         Intent i = new Intent(actividad,
                 VistaLugarActivity.class);
-        i.putExtra("id", id);
+        i.putExtra("pos", id);
         actividad.startActivity(i);
     }
 
@@ -97,7 +97,6 @@ public class CasosUsoLugar {
                 : Uri.parse("geo:0,0?q=" + lugar.getDireccion());
         actividad.startActivity(new Intent("android.intent.action.VIEW", uri));
     }
-
     public void nuevo() {
         int id = lugares.nuevo();
         GeoPunto posicion = ((Aplicacion) actividad.getApplication())

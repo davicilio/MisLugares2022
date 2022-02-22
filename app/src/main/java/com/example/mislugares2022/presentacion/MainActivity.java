@@ -18,6 +18,7 @@ import com.example.mislugares2022.R;
 import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.casosdeuso.CasoDeUsoPermisos;
+import com.example.mislugares2022.casosdeuso.CasosDeUsoLocalizacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.LugaresVector;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private LugaresVector lugares;
     final static int RESULTADO_EDITAR = 1;
     public static int SOLICITAR_PERMISOS_MULTIPLES = 2;
+    private static final int SOLICITUD_PERMISO_LOCALIZACION = 1;
+    private CasosDeUsoLocalizacion usoLocalizacion;
 
     /*public static void main(String[] args) {
         RepositorioLugares lugares = new LugaresVector();
@@ -113,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
             };
             usoPermisos.solicitarPermiso(MainActivity.this, permisos, "Sin permisos no se guardan las fotos", SOLICITAR_PERMISOS_MULTIPLES);
         }
-
+        usoLocalizacion = new CasosDeUsoLocalizacion(this,
+                SOLICITUD_PERMISO_LOCALIZACION);
 
     }
 
@@ -215,6 +219,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        usoLocalizacion.activar();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        usoLocalizacion.desactivar();
+    }
 
 
     /*@Override public boolean onOptionsItemSelected(MenuItem item) {
