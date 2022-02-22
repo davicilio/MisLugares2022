@@ -24,7 +24,6 @@
     <style name="MyFloatingButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="tint">@color/purple</item>
         <item name="backgroundTint">@color/white</item>
-
     </style>
 
     <style name="Theme.MisLugares2022.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

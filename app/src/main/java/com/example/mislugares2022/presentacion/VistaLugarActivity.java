@@ -6,19 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mislugares2022.R;
+import com.example.mislugares2022.adaptadores.AdaptadorLugares;
+import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
+import com.example.mislugares2022.modelo.LugaresVector;
 import com.example.mislugares2022.modelo.RepositorioLugares;
-import com.example.mislugares2022.presentacion.MainActivity;
-import com.example.mislugares2022.R;
-import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,8 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.DateFormat;
 import java.util.Date;
 
-/*
-public class VistaLugarActivity extends AppCompatActivity {
+/*public class VistaLugarActivity extends AppCompatActivity {
     private long id;
     private Lugar lugar;
     RepositorioLugares lugares;
@@ -78,11 +77,12 @@ public class VistaLugarActivity extends AppCompatActivity {
 }*/
 
 public class VistaLugarActivity extends AppCompatActivity {
-    private RepositorioLugares lugares;
+    private LugaresVector lugares;
     private CasosUsoLugar usoLugar;
     private long id;
     private Lugar lugar;
     private ImageView imageView;
+    private AdaptadorLugares adaptador;
     final static int RESULTADO_GALERIA = 2;
     final static int RESULTADO_FOTO = 3;
 
@@ -105,6 +105,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         toolBarLayout.setTitle(getTitle());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(android.R.drawable.ic_input_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +125,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         TextView nombre = findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = findViewById(R.id.logo_tipo);
-        logo_tipo.setImageResource(lugar.getTipo().getRecurso());
+        //logo_tipo.setImageResource(lugar.getTipo().getRecurso());
         TextView tipo = findViewById(R.id.tipo);
         tipo.setText(lugar.getTipo().getTexto());
         TextView direccion = findViewById(R.id.direccion);
@@ -191,14 +192,12 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
 
-
-    /* PONER PARA QUE SE QUEDE GUARDADA LA VALORACIÓN
-        @Override
+    //PONER PARA QUE SE QUEDE GUARDADA LA VALORACIÓN
+        /*@Override
         protected void onResume(){
             super.onResume();
             adaptador.notifyDataSetChanged();
-        }
-        */
+        }*/
 
 
 }

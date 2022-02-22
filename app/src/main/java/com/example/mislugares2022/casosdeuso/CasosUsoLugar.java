@@ -1,22 +1,24 @@
 package com.example.mislugares2022.casosdeuso;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
+import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
+import com.example.mislugares2022.modelo.LugaresVector;
 import com.example.mislugares2022.modelo.RepositorioLugares;
+import com.example.mislugares2022.presentacion.EdicionLugarActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
 
 import java.util.OptionalInt;
 
 public class CasosUsoLugar {
     private Activity actividad;
-    private RepositorioLugares lugares;
+    private LugaresVector lugares;
 
     public final static int RESULTADO_EDITAR = 1;
 
@@ -29,7 +31,7 @@ public class CasosUsoLugar {
 
     }
 
-    public CasosUsoLugar(Activity actividad, RepositorioLugares lugares) {
+    public CasosUsoLugar(Activity actividad, LugaresVector lugares) {
         this.actividad = actividad;
         this.lugares = lugares;
     }
@@ -94,5 +96,19 @@ public class CasosUsoLugar {
                 ? Uri.parse("geo:" + lat + ',' + lon)
                 : Uri.parse("geo:0,0?q=" + lugar.getDireccion());
         actividad.startActivity(new Intent("android.intent.action.VIEW", uri));
+    }
+
+    public void nuevo() {
+        int id = lugares.nuevo();
+        GeoPunto posicion = ((Aplicacion) actividad.getApplication())
+                .posicionActual;
+        if (!posicion.equals(GeoPunto.SIN_POSICION)) {
+            Lugar lugar = lugares.elemento(id);
+            lugar.setPosicion(posicion);
+            lugares.actualiza(id, lugar);
+        }
+        Intent i = new Intent(actividad, EdicionLugarActivity.class);
+        i.putExtra("_id", id);
+        actividad.startActivity(i);
     }
 }

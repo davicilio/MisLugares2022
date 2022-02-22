@@ -4,16 +4,9 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.mislugares2022.R;
-import com.example.mislugares2022.aplicacion.Aplicacion;
-import com.example.mislugares2022.casosdeuso.CasoDeUsoPermisos;
-import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
-import com.example.mislugares2022.adaptadores.AdaptadorLugares;
-import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.RepositorioLugares;
-import com.example.mislugares2022.modelo.LugaresVector;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +14,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
+import com.example.mislugares2022.R;
+import com.example.mislugares2022.adaptadores.AdaptadorLugares;
+import com.example.mislugares2022.aplicacion.Aplicacion;
+import com.example.mislugares2022.casosdeuso.CasoDeUsoPermisos;
+import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
+import com.example.mislugares2022.modelo.Lugar;
+import com.example.mislugares2022.modelo.LugaresVector;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     //public static RepositorioLugares repositorioLugares = new LugaresVector();
@@ -33,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     public AdaptadorLugares adaptador;
     private CasosUsoLugar usoLugar;
+    private CasoDeUsoPermisos usoPermisos;
     private int id;
     private Lugar lugar;
-    private RepositorioLugares lugares;
+    private LugaresVector lugares;
     final static int RESULTADO_EDITAR = 1;
+    public static int SOLICITAR_PERMISOS_MULTIPLES = 2;
 
     /*public static void main(String[] args) {
         RepositorioLugares lugares = new LugaresVector();
@@ -55,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(android.R.drawable.ic_input_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 ////////////////////////////////////
         /*
         Bundle extras = getIntent().getExtras();
@@ -89,6 +98,21 @@ public class MainActivity extends AppCompatActivity {
                 usoLugar.mostrar(MainActivity.this, pos);
             }
         });
+        usoPermisos = new CasoDeUsoPermisos(MainActivity.this, this);
+        if (!usoPermisos.hayPermisoAlmacenamiento(MainActivity.this) || !usoPermisos.hayPermisoCamara(MainActivity.this) || usoPermisos.hayPermisoUbicacion(MainActivity.this)) {
+
+
+            String permisos[] = {
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            };
+            usoPermisos.solicitarPermiso(MainActivity.this, permisos, "Sin permisos no se guardan las fotos", SOLICITAR_PERMISOS_MULTIPLES);
+        }
 
 
     }

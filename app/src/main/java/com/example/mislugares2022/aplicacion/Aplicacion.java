@@ -7,7 +7,6 @@ import androidx.multidex.MultiDexApplication;
 import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.LugaresVector;
-import com.example.mislugares2022.modelo.RepositorioLugares;
 
 public class Aplicacion extends MultiDexApplication {
     public LugaresVector lugares = null;
@@ -23,7 +22,7 @@ public class Aplicacion extends MultiDexApplication {
         Log.i("Aplicacion", "Empezamos la aplicacion");
     }
 
-    public RepositorioLugares getLugares() {
+    public LugaresVector getLugares() {
         return lugares;
     }
 
