@@ -174,9 +174,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                 usoLugar.editar((int) id);
                 return true;
             case R.id.accion_borrar:
-                //TODO
-                //int id = (id);
-                //usoLugar.borrar(id);
+                usoLugar.borrar((int) id);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
