@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.LugaresVector;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.example.mislugares2022.presentacion.EdicionLugarActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
@@ -18,7 +18,7 @@ import java.util.OptionalInt;
 
 public class CasosUsoLugar {
     private Activity actividad;
-    private LugaresVector lugares;
+    private LugaresBD lugares;
 
     public final static int RESULTADO_EDITAR = 1;
 
@@ -31,7 +31,7 @@ public class CasosUsoLugar {
 
     }
 
-    public CasosUsoLugar(Activity actividad, LugaresVector lugares) {
+    public CasosUsoLugar(Activity actividad, LugaresBD lugares) {
         this.actividad = actividad;
         this.lugares = lugares;
     }

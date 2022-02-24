@@ -2,6 +2,7 @@ package com.example.mislugares2022.modelo;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -98,7 +99,10 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override
     public void borrar(Lugar lugar) {
-
+        getWritableDatabase().execSQL("DELETE FROM lugares WHERE _id = " + lugar.getId());
+        Cursor c = getReadableDatabase().rawQuery(
+                "SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
+        c.close();
     }
 
     @Override
@@ -109,6 +113,37 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
     @Override
     public void actualiza(int id, Lugar lugar) {
 
+    }
+
+    public Lugar elemento(int id) {
+        Cursor cursor = getReadableDatabase().rawQuery(
+                "SELECT * FROM lugares WHERE _id = " + id, null);
+        try {
+            if (cursor.moveToNext())
+                return extraeLugar(cursor);
+            else
+                throw new SQLException("Error al acceder al elemento _id = " + id);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
+    public static Lugar extraeLugar(Cursor cursor) {
+        Lugar lugar = new Lugar();
+        lugar.setNombre(cursor.getString(1));
+        lugar.setDireccion(cursor.getString(2));
+        lugar.setPosicion(new GeoPunto(cursor.getDouble(3),
+                cursor.getDouble(4)));
+        lugar.setTipo(TipoLugar.values()[cursor.getInt(5)]);
+        lugar.setFoto(cursor.getString(6));
+        lugar.setTelefono(cursor.getInt(7));
+        lugar.setUrl(cursor.getString(8));
+        lugar.setComentario(cursor.getString(9));
+        lugar.setFecha(cursor.getLong(10));
+        lugar.setValoracion(cursor.getFloat(11));
+        return lugar;
     }
 
     @Override
