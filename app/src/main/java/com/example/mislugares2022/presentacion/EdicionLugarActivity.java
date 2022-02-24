@@ -14,13 +14,13 @@ import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.LugaresVector;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.example.mislugares2022.modelo.TipoLugar;
 
 public class EdicionLugarActivity extends AppCompatActivity {
 
     private long id;
-    private LugaresVector lugares;//
+    private LugaresBD lugares;//
     private AdaptadorLugares adaptador;
     private CasosUsoLugar usoLugar;
     private Lugar lugar;
@@ -41,7 +41,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         id = extras.getInt("id", -1);
-        lugar = lugares.getElemento((int) id);
+        lugar = lugares.elemento((int) id);
         actualizaVistas();
 
 

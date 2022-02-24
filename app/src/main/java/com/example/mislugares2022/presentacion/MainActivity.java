@@ -21,7 +21,7 @@ import com.example.mislugares2022.casosdeuso.CasoDeUsoPermisos;
 import com.example.mislugares2022.casosdeuso.CasosDeUsoLocalizacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.LugaresVector;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -35,18 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private CasoDeUsoPermisos usoPermisos;
     private int id;
     private Lugar lugar;
-    private LugaresVector lugares;
+    private LugaresBD lugares;
     final static int RESULTADO_EDITAR = 1;
     public static int SOLICITAR_PERMISOS_MULTIPLES = 2;
     private static final int SOLICITUD_PERMISO_LOCALIZACION = 1;
     private CasosDeUsoLocalizacion usoLocalizacion;
-
-    /*public static void main(String[] args) {
-        RepositorioLugares lugares = new LugaresVector();
-        for (int i=0; i<lugares.tamanyo(); i++) {
-            System.out.println(RepositorioLugares.elemento(i).toString());
-        }
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 usoLugar.nuevo();
             }
         });
-////////////////////////////////////
-        /*
-        Bundle extras = getIntent().getExtras();
-        //coge el id para obtener el lugar que le indicamos
-        lugares =((Aplicacion) getApplication()).getLugares();
-        id = extras.getInt("id", -1);
-        lugar = RepositorioLugares.getElementoPorPosicion(id);
-        //lugar = lugares.getElementoPorPosicion(id);
-        CasoDeUsoPermisos.solicitarPermiso(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                "Necesita permisos de almacenamiento para añadir fotografías", 1);
-        */
-//////////////////////////////////
-        //recycler
+
 
         //lugares = ((Aplicacion) getApplication()).lugares;
-        lugares = (LugaresVector) ((Aplicacion) getApplication()).getLugares();
+        lugares = (LugaresBD) ((Aplicacion) getApplication()).getLugares();
         adaptador = ((Aplicacion) getApplication()).adaptador;
         usoLugar = new CasosUsoLugar(this, lugares);
 
@@ -120,49 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 SOLICITUD_PERMISO_LOCALIZACION);
 
     }
-
-    //SIN RECYCLER
-        /*
-        Button bAcercaDe = findViewById(R.id.btnAcercade);
-        bAcercaDe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lanzarAcercaDe(null);
-
-            }
-        });
-
-        Button btnMostrarLugares = findViewById(R.id.btnMostrarLugares);
-        btnMostrarLugares.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lanzarVistaLugar(null);
-            }
-        });
-
-        Button bSalir = findViewById(R.id.btnSalir);
-        bSalir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-*////////////////
-
-
-    /*
-    @Override   onOptionsItemSelected(MenuItem item) { public boolean
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            true; return
-        }
-        if (id == R.id.acercaDe) {
-            lanzarAcercaDe( ); null
-            return true;
-        }
-    .onOptionsItemSelected(item); return super
-    }*/
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

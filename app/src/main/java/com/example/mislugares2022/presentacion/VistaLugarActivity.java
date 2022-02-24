@@ -17,7 +17,7 @@ import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.LugaresVector;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,7 +77,7 @@ import java.util.Date;
 }*/
 
 public class VistaLugarActivity extends AppCompatActivity {
-    private LugaresVector lugares;
+    private LugaresBD lugares;
     private CasosUsoLugar usoLugar;
     private long id;
     private Lugar lugar;

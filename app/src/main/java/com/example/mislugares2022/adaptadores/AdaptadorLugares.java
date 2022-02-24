@@ -16,18 +16,18 @@ import com.example.mislugares2022.R;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.LugaresVector;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.example.mislugares2022.modelo.RepositorioLugares;
 
 public class AdaptadorLugares extends
         RecyclerView.Adapter<AdaptadorLugares.ViewHolder> {
-    protected LugaresVector lugares;
+    protected LugaresBD lugares;
     protected LayoutInflater inflador;
     protected View.OnClickListener onClickListener;
 
 
     // Lista de lugares a mostrar
-    public AdaptadorLugares(LugaresVector lugares, Context contexto) {
+    public AdaptadorLugares(LugaresBD lugares, Context contexto) {
         this.lugares = lugares;
         inflador = (LayoutInflater) contexto
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

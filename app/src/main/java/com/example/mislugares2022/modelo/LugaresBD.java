@@ -21,7 +21,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         bd.execSQL("CREATE TABLE lugares (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nombre TEXT, " +
                 "direccion TEXT, " +
                 "longitud REAL, " +
@@ -82,7 +82,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override
     public int nuevo() {
-        int _id = -1;
+        int id = -1;
         Lugar lugar = new Lugar();
         getWritableDatabase().execSQL("INSERT INTO lugares (nombre, " +
                 "direccion, longitud, latitud, tipo, foto, telefono, url, " +
@@ -91,17 +91,17 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 lugar.getPosicion().getLatitud() + ", " + lugar.getTipo().ordinal() +
                 ", '', 0, '', '', " + lugar.getFecha() + ", 0)");
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
-        if (c.moveToNext()) _id = c.getInt(0);
+                "SELECT id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
+        if (c.moveToNext()) id = c.getInt(0);
         c.close();
-        return _id;
+        return id;
     }
 
     @Override
     public void borrar(Lugar lugar) {
-        getWritableDatabase().execSQL("DELETE FROM lugares WHERE _id = " + lugar.getId());
+        getWritableDatabase().execSQL("DELETE FROM lugares WHERE id = " + lugar.getId());
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT _id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
+                "SELECT id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
         c.close();
     }
 
@@ -117,12 +117,12 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     public Lugar elemento(int id) {
         Cursor cursor = getReadableDatabase().rawQuery(
-                "SELECT * FROM lugares WHERE _id = " + id, null);
+                "SELECT * FROM lugares WHERE id = " + id, null);
         try {
             if (cursor.moveToNext())
                 return extraeLugar(cursor);
             else
-                throw new SQLException("Error al acceder al elemento _id = " + id);
+                throw new SQLException("Error al acceder al elemento id = " + id);
         } catch (Exception e) {
             throw e;
         } finally {
