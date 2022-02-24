@@ -62,9 +62,16 @@ public class LugaresVector implements RepositorioLugares, Iterator {
 
     public int nuevo() {
         Lugar lugar = new Lugar();
+        lugar.setComentario("");
+        lugar.setDireccion("");
+        lugar.setValoracion(0);
+        lugar.setNombre("");
+        lugar.setTelefono(-1);
+        lugar.setUrl("");
         anyade(lugar);
         return vectorLugares.size() - 1;
     }
+
 
     /**
      * This method delete a Lugar object to the list

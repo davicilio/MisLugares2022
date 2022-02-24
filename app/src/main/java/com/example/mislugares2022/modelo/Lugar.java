@@ -1,7 +1,5 @@
 package com.example.mislugares2022.modelo;
 
-import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +16,7 @@ public class Lugar implements Serializable {
 
 
     //private int id = CasosUsoLugar.ID_LUGAR_NUEVO;
-    private int id = ConstantesModelo.ID_INICIAL;
+    private int id = -1 /*ConstantesModelo.ID_INICIAL*/;
     private String nombre = "";
 
     private String direccion = "";
@@ -31,8 +29,8 @@ public class Lugar implements Serializable {
     private long telefono = -1;
     private String url = "";
     private String comentario = "";
-    private long fecha;
-    private float valoracion;
+    private long fecha = -1;
+    private float valoracion = 0;
 
 
     public Lugar(int id, String nombre, String direccion, double longitud, double latitud, TipoLugar tipo, int telefono,

@@ -92,7 +92,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt("pos", 0);
+        id = extras.getInt("id", 0);
         lugares = ((Aplicacion) getApplication()).getLugares();
         usoLugar = new CasosUsoLugar(this, lugares);
         lugar = RepositorioLugares.elemento((int) id);
@@ -171,8 +171,12 @@ public class VistaLugarActivity extends AppCompatActivity {
                 usoLugar.verMapa(lugar);
                 return true;
             case R.id.accion_editar:
+                usoLugar.editar((int) id);
                 return true;
             case R.id.accion_borrar:
+                //TODO
+                //int id = (id);
+                //usoLugar.borrar(id);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

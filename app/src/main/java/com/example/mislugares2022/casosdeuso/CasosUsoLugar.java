@@ -41,7 +41,7 @@ public class CasosUsoLugar {
     public static void mostrar(Activity actividad, int id) {
         Intent i = new Intent(actividad,
                 VistaLugarActivity.class);
-        i.putExtra("pos", id);
+        i.putExtra("id", id);
         actividad.startActivity(i);
     }
 
@@ -105,9 +105,22 @@ public class CasosUsoLugar {
             Lugar lugar = lugares.elemento(id);
             lugar.setPosicion(posicion);
             lugares.actualiza(id, lugar);
+            lugar.setUrl("");
+            lugar.setValoracion(0);
+            lugar.setNombre("");
+            lugar.setComentario("");
+            lugar.setTelefono(0);
         }
         Intent i = new Intent(actividad, EdicionLugarActivity.class);
-        i.putExtra("_id", id);
+        i.putExtra("id", id);
         actividad.startActivity(i);
     }
+
+    public void editar(int pos) {
+        Intent i = new Intent(actividad, EdicionLugarActivity.class);
+        i.putExtra("id", pos);
+        actividad.startActivity(i);
+
+    }
+
 }

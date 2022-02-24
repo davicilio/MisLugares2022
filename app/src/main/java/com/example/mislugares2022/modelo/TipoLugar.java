@@ -26,27 +26,11 @@ public enum TipoLugar implements Serializable {
         this.recurso = recurso;
     }
 
-    /**
-     * This methods return the array of kind of places depicted int this enumerated type
-     *
-     * @return String [] array of TipoLugar
-     */
-
-    public static String[] getNombres() {
-        String[] resultado = new String[TipoLugar.values().length];
-        for (TipoLugar tipo : TipoLugar.values()) {
-            resultado[tipo.ordinal()] = tipo.texto;
-        }
-        return resultado;
-    }
-
     public static TipoLugar getTipoPorNombre(String nombre) {
         TipoLugar tipoRes = null;
 
-
         for (TipoLugar tipo : TipoLugar.values()) {
             if (tipo.getTexto().contains(nombre)) {
-
                 tipoRes = tipo;
                 break;
             }
@@ -56,27 +40,11 @@ public enum TipoLugar implements Serializable {
 
     }
 
-    /**
-     * returns the kind of place description
-     *
-     * @return String
-     */
     public String getTexto() {
         return texto;
     }
 
-/**
- * returns the id related to the icon that depicts the kind of place
- *
- * @return int return an icon identifier
- */
-    /**
-     * returns the id related to the icon that depicts the kind of place
-     *
-     * @return int return an icon identifier
-     */
     public int getRecurso() {
-
         return recurso;
     }
 
@@ -86,5 +54,13 @@ public enum TipoLugar implements Serializable {
                 "texto='" + texto + '\'' +
                 ", recurso=" + recurso +
                 '}';
+    }
+
+    public static String[] getNombres() {
+        String[] resultado = new String[TipoLugar.values().length];
+        for (TipoLugar tipo : TipoLugar.values()) {
+            resultado[tipo.ordinal()] = tipo.texto;
+        }
+        return resultado;
     }
 }
