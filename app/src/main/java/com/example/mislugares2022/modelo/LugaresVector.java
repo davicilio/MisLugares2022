@@ -1,17 +1,36 @@
 package com.example.mislugares2022.modelo;
 
-import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * This class implements a list of Lugar objects (places)
  *
  * @author Carlos@Cano
  * @version 1.1
- */
+ * <p>
+ * This method add a Lugar object to the list
+ * @param id identifier of this place
+ * @return Lugar a place in the list
+ * @author Carlos Cano
+ * <p>
+ * This method add a Lugar object to the list
+ * @param lugar this a place
+ * @return void
+ * @author Carlos Cano
+ * <p>
+ * This method delete a Lugar object to the list
+ * @param lugar the object of this a place
+ * @return void
+ * @author Carlos Cano
+ * <p>
+ * This method delete a Lugar object to the list
+ * @return int
+ * @author Carlos Cano
+ * <p>
+ * This method update a Lugar object to the list
+ * @param id    the identifier of this a place
+ * @param lugar updated version of the place
+ * @return void
+ * @author Carlos Cano
+ *//*
 public class LugaresVector implements RepositorioLugares, Iterator {
     protected static List<Lugar> vectorLugares = ejemploLugares();
     private static int iteratorCount = 0;
@@ -22,13 +41,13 @@ public class LugaresVector implements RepositorioLugares, Iterator {
         vectorLugares = (ArrayList) ejemploLugares();
     }
 
-    /**
-     * This method add a Lugar object to the list
-     *
-     * @param id identifier of this place
-     * @return Lugar a place in the list
-     * @author Carlos Cano
-     */
+    *//**
+ * This method add a Lugar object to the list
+ *
+ * @param id identifier of this place
+ * @return Lugar a place in the list
+ * @author Carlos Cano
+ *//*
 
     public static Lugar elemento(int id) {
 
@@ -45,13 +64,28 @@ public class LugaresVector implements RepositorioLugares, Iterator {
 
     }
 
-    /**
-     * This method add a Lugar object to the list
-     *
-     * @param lugar this a place
-     * @return void
-     * @author Carlos Cano
-     */
+    *//**
+ * This method add a Lugar object to the list
+ *
+ * @param lugar this a place
+ * @return void
+ * @author Carlos Cano
+ * <p>
+ * This method delete a Lugar object to the list
+ * @param lugar the object of this a place
+ * @return void
+ * @author Carlos Cano
+ * <p>
+ * This method delete a Lugar object to the list
+ * @return int
+ * @author Carlos Cano
+ * <p>
+ * This method update a Lugar object to the list
+ * @param id    the identifier of this a place
+ * @param lugar updated version of the place
+ * @return void
+ * @author Carlos Cano
+ *//*
 
     public void anyade(Lugar lugar) {
 
@@ -73,24 +107,34 @@ public class LugaresVector implements RepositorioLugares, Iterator {
     }
 
 
-    /**
-     * This method delete a Lugar object to the list
-     *
-     * @param lugar the object of this a place
-     * @return void
-     * @author Carlos Cano
-     */
+    *//**
+ * This method delete a Lugar object to the list
+ *
+ * @param lugar the object of this a place
+ * @return void
+ * @author Carlos Cano
+ * <p>
+ * This method delete a Lugar object to the list
+ * @return int
+ * @author Carlos Cano
+ * <p>
+ * This method update a Lugar object to the list
+ * @param id    the identifier of this a place
+ * @param lugar updated version of the place
+ * @return void
+ * @author Carlos Cano
+ *//*
 
     public void borrar(Lugar lugar) {
         vectorLugares.remove(lugar);
     }
 
-    /**
-     * This method delete a Lugar object to the list
-     *
-     * @return int
-     * @author Carlos Cano
-     */
+    *//**
+ * This method delete a Lugar object to the list
+ *
+ * @return int
+ * @author Carlos Cano
+ *//*
 
     public int tamanyo() {
         return vectorLugares.size();
@@ -129,14 +173,14 @@ public class LugaresVector implements RepositorioLugares, Iterator {
     }
 
 
-    /**
+    *//**
      * This method update a Lugar object to the list
      *
      * @param id    the identifier of this a place
      * @param lugar updated version of the place
-     * @return void
-     * @author Carlos Cano
-     */
+ * @return void
+ * @author Carlos Cano
+ *//*
 
 
     public void actualiza(int id, Lugar lugar) {
@@ -177,7 +221,7 @@ public class LugaresVector implements RepositorioLugares, Iterator {
 
     }
 
-    //TODO AQUI ESTÁ EL ERROR, NO SE INICIALIZA BIEN EL ID
+    // AQUI ESTÁ EL ERROR, NO SE INICIALIZA BIEN EL ID
     private static int siguienteId() {
 
         if (vectorLugares == null)
@@ -201,4 +245,4 @@ public class LugaresVector implements RepositorioLugares, Iterator {
         }
         return maxId;
     }
-}
+}*/

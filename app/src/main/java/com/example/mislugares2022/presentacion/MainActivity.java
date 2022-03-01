@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //lugares = ((Aplicacion) getApplication()).lugares;
+
+//        lugares = new LugaresBD(this);
+//        adaptador = new AdaptadorLugares(lugares,this, lugares.extraeCursor());
         lugares = (LugaresBD) ((Aplicacion) getApplication()).getLugares();
         adaptador = ((Aplicacion) getApplication()).adaptador;
         usoLugar = new CasosUsoLugar(this, lugares);
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int pos = recyclerView.getChildAdapterPosition(v);
-                usoLugar.mostrar(MainActivity.this, pos);
+                usoLugar.mostrar(MainActivity.this, pos + 1);
             }
         });
         usoPermisos = new CasoDeUsoPermisos(MainActivity.this, this);

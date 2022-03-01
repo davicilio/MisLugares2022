@@ -17,7 +17,7 @@ public class Aplicacion extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         lugares = new LugaresBD(this);
-        adaptador = new AdaptadorLugares(lugares, this);
+        adaptador = new AdaptadorLugares(lugares, lugares.extraeCursor());
 
         Log.i("Aplicacion", "Empezamos la aplicacion");
     }

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
+import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
@@ -19,6 +20,7 @@ import java.util.OptionalInt;
 public class CasosUsoLugar {
     private Activity actividad;
     private LugaresBD lugares;
+    private AdaptadorLugares adaptador;
 
     public final static int RESULTADO_EDITAR = 1;
 
@@ -55,8 +57,11 @@ public class CasosUsoLugar {
     }
 
     public void borrar(final int id) {
-        lugares.borrar(RepositorioLugares.elemento(id));
+        lugares.borrar(lugares.elemento(id));
+        /*adaptador.setCursor(lugares.extraeCursor());
+        adaptador.notifyDataSetChanged();*/
         actividad.finish();
+
     }
 
     public void ponerDeGaleria(int codigoSolicitud) {

@@ -18,7 +18,6 @@ import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.casosdeuso.CasosUsoLugar;
 import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.LugaresBD;
-import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -94,8 +93,9 @@ public class VistaLugarActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         id = extras.getInt("id", 0);
         lugares = ((Aplicacion) getApplication()).getLugares();
+        adaptador = ((Aplicacion) getApplication()).adaptador;
         usoLugar = new CasosUsoLugar(this, lugares);
-        lugar = RepositorioLugares.elemento((int) id);
+        lugar = lugares.elemento((int) id);
         imageView = (ImageView) findViewById(R.id.foto);
         actualizaVistas();
 
@@ -151,6 +151,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                     public void onRatingChanged(RatingBar ratingBar,
                                                 float valor, boolean fromUser) {
                         lugar.setValoracion(valor);
+                        //usoLugar.guardar(VistaLugarActivity.this,lugares,(int)id,lugar);
                     }
                 });
     }
@@ -196,11 +197,14 @@ public class VistaLugarActivity extends AppCompatActivity {
 
 
     //PONER PARA QUE SE QUEDE GUARDADA LA VALORACIÓN
-        /*@Override
-        protected void onResume(){
-            super.onResume();
-            adaptador.notifyDataSetChanged();
-        }*/
+    @Override
+        protected void onResume() {
+        super.onResume();
+        //adaptador = new AdaptadorLugares(lugares,lugares.extraeCursor());
+        adaptador.notifyDataSetChanged();
+
+
+    }
 
 
 }

@@ -1,7 +1,7 @@
 package com.example.mislugares2022.adaptadores;
 
 
-import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +17,21 @@ import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.LugaresBD;
-import com.example.mislugares2022.modelo.RepositorioLugares;
 
 public class AdaptadorLugares extends
         RecyclerView.Adapter<AdaptadorLugares.ViewHolder> {
     protected LugaresBD lugares;
     protected LayoutInflater inflador;
     protected View.OnClickListener onClickListener;
-
+    protected Cursor cursor;
 
     // Lista de lugares a mostrar
-    public AdaptadorLugares(LugaresBD lugares, Context contexto) {
+    public AdaptadorLugares(LugaresBD lugares, Cursor cursor) {
         this.lugares = lugares;
-        inflador = (LayoutInflater) contexto
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.cursor = cursor;
+//        inflador = (LayoutInflater) contexto
+//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
@@ -107,7 +108,6 @@ public class AdaptadorLugares extends
 
         }
     }
-
     @NonNull
     // Creamos el ViewHolder con la vista de un elemento sin personalizar
     @Override
@@ -119,18 +119,51 @@ public class AdaptadorLugares extends
         return new ViewHolder(v);
     }
 
+
+    public Cursor getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
+    }
+
+    public Lugar lugarPosicion(int posicion) {
+        cursor.moveToPosition(posicion);
+        return LugaresBD.extraeLugar(cursor);
+    }
+
+    public int idPosicion(int posicion) {
+        cursor.moveToPosition(posicion);
+        return cursor.getInt(0);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Lugar lugar = lugarPosicion(position);
+        holder.personaliza(holder, lugar);
+    }
+
+    @Override
+    public int getItemCount() {
+        return cursor.getCount();
+    }
+
+
     // Indicamos el número de elementos de la lista
+/*
     @Override
     public int getItemCount() {
         return lugares.tamanyo();
     }
+*/
 
     // Usando como base el ViewHolder y lo personalizamos
-    @Override
+   /* @Override
     public void onBindViewHolder(ViewHolder holder, int posicion) {
-        Lugar lugar = RepositorioLugares.getElementoPorPosicion(posicion);
+        Lugar lugar = lugares.elemento(posicion);
         holder.personaliza(holder, lugar);
-    }
+    }*/
 
 
 }

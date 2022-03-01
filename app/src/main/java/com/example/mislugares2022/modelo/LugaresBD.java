@@ -1,24 +1,32 @@
 package com.example.mislugares2022.modelo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
+
+import com.example.mislugares2022.adaptadores.AdaptadorLugares;
+import com.example.mislugares2022.aplicacion.Aplicacion;
 
 import java.util.List;
 
 public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     SQLiteDatabase bd;
+    Context contexto;
+    AdaptadorLugares adaptador;
+    LugaresBD lugares;
 
     public LugaresBD(Context context) {
         super(context, "lugares", null, 1);
-
+        this.contexto = context;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase bd) {
 
         bd.execSQL("CREATE TABLE lugares (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -104,6 +112,10 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
                 "SELECT id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
         c.close();
     }
+    /*@Override
+    public void borrar(int id) {
+        getWritableDatabase().execSQL("DELETE FROM lugares WHERE _id = " + id);
+    }*/
 
     @Override
     public int tamanyo() {
@@ -115,6 +127,7 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     }
 
+    @Override
     public Lugar elemento(int id) {
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT * FROM lugares WHERE id = " + id, null);
@@ -146,10 +159,40 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
         return lugar;
     }
 
+    public Cursor extraeCursor() {
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(contexto);
+        String consulta;
+        switch (pref.getString("orden", "0")) {
+            case "0":
+                consulta = "SELECT * FROM lugares ";
+                break;
+            case "1":
+                consulta = "SELECT * FROM lugares ORDER BY valoracion DESC";
+                break;
+            default:
+                double lon = ((Aplicacion) contexto.getApplicationContext())
+                        .posicionActual.getLongitud();
+                double lat = ((Aplicacion) contexto.getApplicationContext())
+                        .posicionActual.getLatitud();
+                consulta = "SELECT * FROM lugares ORDER BY " +
+                        "(" + lon + "-longitud)*(" + lon + "-longitud) + " +
+                        "(" + lat + "-latitud )*(" + lat + "-latitud )";
+                break;
+        }
+        consulta += " LIMIT " + pref.getString("maximo", "12");
+        SQLiteDatabase bd = getReadableDatabase();
+        return bd.rawQuery(consulta, null);
+    }
+
     @Override
     public List<Lugar> listaLugares() {
         return null;
     }
 
+    @Override
+    public Lugar getElementoPorPosicion(int id) {
+        return null;
+    }
 
 }

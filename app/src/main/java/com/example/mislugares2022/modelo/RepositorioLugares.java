@@ -1,6 +1,5 @@
 package com.example.mislugares2022.modelo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,10 +14,10 @@ public interface RepositorioLugares {
     static GeoPunto posicionActual = ConstantesModelo.SIN_POSICION;
 
 
-    static Lugar elemento(int id)  // Devuelve el elemento dado su id
-    {
-        return LugaresVector.elemento(id);
-    }
+    /*static*/ Lugar elemento(int id);  // Devuelve el elemento dado su id
+    /*{
+        return LugaresBD.elemento(id);
+    }*/
 
     void anyade(Lugar lugar); // Añade el elemento indicado
 
@@ -32,9 +31,9 @@ public interface RepositorioLugares {
 
     public List<Lugar> listaLugares();
 
-    static Lugar getElementoPorPosicion(int id) {
+    /*static*/ Lugar getElementoPorPosicion(int id); /*{
         return LugaresVector.elemento(id);
-    }
+    }*/
 
 
 }

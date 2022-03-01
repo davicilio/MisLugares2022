@@ -126,7 +126,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
                 lugar.setTelefono(Integer.parseInt(telefono.getText().toString()));
                 lugar.setUrl(url.getText().toString());
                 lugar.setComentario(comentario.getText().toString());
-                if (id == -1) id = adaptador.getItemCount();
+                if (id == -1) id = (long) adaptador.getItemCount();
                 usoLugar.guardar(this, lugares, (int) id, lugar);
                 finish();
                 return true;
