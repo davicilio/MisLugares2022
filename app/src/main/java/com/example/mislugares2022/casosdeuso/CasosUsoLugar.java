@@ -121,9 +121,9 @@ public class CasosUsoLugar {
         actividad.startActivity(i);
     }
 
-    public void editar(int pos) {
+    public void editar(int id) {
         Intent i = new Intent(actividad, EdicionLugarActivity.class);
-        i.putExtra("id", pos);
+        i.putExtra("id", id);
         actividad.startActivity(i);
 
     }
