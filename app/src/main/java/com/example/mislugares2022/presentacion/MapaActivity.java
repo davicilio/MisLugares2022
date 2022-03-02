@@ -1,11 +1,13 @@
 package com.example.mislugares2022.presentacion;
 
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -20,10 +22,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapaActivity extends FragmentActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
     private GoogleMap mapa;
     private RepositorioLugares lugares;
 
@@ -66,6 +69,20 @@ public class MapaActivity extends FragmentActivity
                         .position(new LatLng(p.getLatitud(), p.getLongitud()))
                         .title(lugar.getNombre()).snippet(lugar.getDireccion())
                         .icon(BitmapDescriptorFactory.fromBitmap(icono)));
+            }
+        }
+        mapa.setOnInfoWindowClickListener(this);
+    }
+
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        for (int id = 0; id < lugares.tamanyo(); id++) {
+            if (lugares.elemento(id).getNombre()
+                    .equals(marker.getTitle())) {
+                Intent intent = new Intent(this, VistaLugarActivity.class);
+                intent.putExtra("pos", id);
+                startActivity(intent);
+                break;
             }
         }
     }
