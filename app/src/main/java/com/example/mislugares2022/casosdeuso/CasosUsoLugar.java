@@ -4,7 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 
 import com.example.mislugares2022.adaptadores.AdaptadorLugares;
 import com.example.mislugares2022.aplicacion.Aplicacion;
@@ -15,6 +20,8 @@ import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.example.mislugares2022.presentacion.EdicionLugarActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.OptionalInt;
 
 public class CasosUsoLugar {
@@ -49,7 +56,6 @@ public class CasosUsoLugar {
 
 
     public static void guardar(Activity actividad, RepositorioLugares lugares, int id, Lugar nuevoLugar) {
-
         lugares.actualiza(id, nuevoLugar);
 
         CasoDeUsoNavegacion.navegarA(actividad, VistaLugarActivity.class, OptionalInt.of(id), "id");
@@ -127,5 +133,45 @@ public class CasosUsoLugar {
         actividad.startActivity(i);
 
     }
+
+
+    public void ponerFoto(int pos, String uri, ImageView imageView) {
+        Lugar lugar = lugares.elemento(pos);
+        lugar.setFoto(uri);
+        visualizarFoto(lugar, imageView);
+    }
+
+    public void visualizarFoto(Lugar lugar, ImageView imageView) {
+        if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
+            imageView.setImageURI(Uri.parse(lugar.getFoto()));
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }
+
+
+    public Uri tomarFoto(int codidoSolicitud) {
+        try {
+            Uri uriUltimaFoto;
+            File file = File.createTempFile(
+                    "img_" + (System.currentTimeMillis() / 1000), ".jpg",
+                    actividad.getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+            if (Build.VERSION.SDK_INT >= 24) {
+                uriUltimaFoto = FileProvider.getUriForFile(
+                        actividad, "com.example.mislugares.fileProvider", file);
+            } else {
+                uriUltimaFoto = Uri.fromFile(file);
+            }
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriUltimaFoto);
+            actividad.startActivityForResult(intent, codidoSolicitud);
+            return uriUltimaFoto;
+        } catch (IOException ex) {
+            Toast.makeText(actividad, "Error al crear fichero de imagen",
+                    Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
 
 }

@@ -124,7 +124,19 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
 
     @Override
     public void actualiza(int id, Lugar lugar) {
-
+        getWritableDatabase().execSQL("UPDATE lugares SET" +
+                "   nombre = '" + lugar.getNombre() +
+                "', direccion = '" + lugar.getDireccion() +
+                "', longitud = " + lugar.getPosicion().getLongitud() +
+                " , latitud = " + lugar.getPosicion().getLatitud() +
+                " , tipo = " + lugar.getTipo().ordinal() +
+                " , foto = '" + lugar.getFoto() +
+                "', telefono = " + lugar.getTelefono() +
+                " , url = '" + lugar.getUrl() +
+                "', comentario = '" + lugar.getComentario() +
+                "', fecha = " + lugar.getFecha() +
+                " , valoracion = " + lugar.getValoracion() +
+                " WHERE id = " + id);
     }
 
     @Override

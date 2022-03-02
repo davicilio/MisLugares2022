@@ -1,6 +1,8 @@
 package com.example.mislugares2022.presentacion;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -78,10 +81,13 @@ import java.util.Date;
 public class VistaLugarActivity extends AppCompatActivity {
     private LugaresBD lugares;
     private CasosUsoLugar usoLugar;
-    private long id;
+    private long id = -1;
     private Lugar lugar;
     private ImageView imageView;
     private AdaptadorLugares adaptador;
+    private ImageView foto;
+    private Uri uriUltimaFoto;
+    final static int RESULTADO_EDITAR = 1;
     final static int RESULTADO_GALERIA = 2;
     final static int RESULTADO_FOTO = 3;
 
@@ -144,6 +150,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         hora.setText(DateFormat.getTimeInstance().format(
                 new Date(lugar.getFecha())));
         RatingBar valoracion = findViewById(R.id.valoracion);
+        valoracion.setOnRatingBarChangeListener(null);
         valoracion.setRating(lugar.getValoracion());
         valoracion.setOnRatingBarChangeListener(
                 new RatingBar.OnRatingBarChangeListener() {
@@ -154,6 +161,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                         //usoLugar.guardar(VistaLugarActivity.this,lugares,(int)id,lugar);
                     }
                 });
+        //usoLugar.visualizarFoto(lugar, foto);
     }
 
     @Override
@@ -182,6 +190,19 @@ public class VistaLugarActivity extends AppCompatActivity {
         }
     }
 
+    public void ponerDeGaleria(View view) {
+        usoLugar.ponerDeGaleria(RESULTADO_GALERIA);
+    }
+
+    public void tomarFoto(View view) {
+        uriUltimaFoto = usoLugar.tomarFoto(RESULTADO_FOTO);
+    }
+
+
+    public void eliminarFoto(View view) {
+        usoLugar.ponerFoto((int) id, "", foto);
+    }
+
 
     public void verMapa(View view) {
         usoLugar.verMapa(lugar);
@@ -196,11 +217,38 @@ public class VistaLugarActivity extends AppCompatActivity {
     }
 
 
+    @Override /*protected*/ public void onActivityResult(int requestCode, int resultCode,
+                                                         Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULTADO_EDITAR) {
+            //int id = adaptador.idPosicion(pos);
+            lugar = lugares.elemento((int) id);
+            //adaptador.cursor = lugares.extraeCursor();
+            //pos = adaptador.posicionId(_id);
+            actualizaVistas();
+        } else if (requestCode == RESULTADO_GALERIA) {
+            if (resultCode == Activity.RESULT_OK) {
+                usoLugar.ponerFoto((int) id, data.getDataString(), foto);
+            } else {
+                Toast.makeText(this, "Foto no cargada", Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == RESULTADO_FOTO) {
+            if (resultCode == Activity.RESULT_OK && uriUltimaFoto != null) {
+                lugar.setFoto(uriUltimaFoto.toString());
+                usoLugar.ponerFoto((int) id, lugar.getFoto(), foto);
+            } else {
+                Toast.makeText(this, "Error en captura", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     //PONER PARA QUE SE QUEDE GUARDADA LA VALORACIÓN
     @Override
-        protected void onResume() {
+    protected void onResume() {
         super.onResume();
         //adaptador = new AdaptadorLugares(lugares,lugares.extraeCursor());
+        //usoLugar.guardar(this, lugares, (int) id, lugar);
         adaptador.notifyDataSetChanged();
 
 
