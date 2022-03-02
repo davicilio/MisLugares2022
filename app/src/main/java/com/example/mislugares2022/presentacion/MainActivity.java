@@ -1,10 +1,12 @@
 package com.example.mislugares2022.presentacion;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int id;
     private Lugar lugar;
     private LugaresBD lugares;
+    public static final int PREFERENCIAS = 0;
     final static int RESULTADO_EDITAR = 1;
     public static int SOLICITAR_PERMISOS_MULTIPLES = 2;
     private static final int SOLICITUD_PERMISO_LOCALIZACION = 1;
@@ -104,6 +107,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void lanzarAcercaDe(View view) {
+        Intent i = new Intent(this, AcercaDeActivity.class);
+        startActivity(i);
+    }
+
+    public void lanzarPreferencias(View view) {
+        Intent i = new Intent(this, PreferenciasActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent i = new Intent(this, PreferenciasActivity.class);
+            ((Activity) this).startActivityForResult(i, PREFERENCIAS);
+            return true;
+        }
+        if (id == R.id.acercaDe) {
+            lanzarAcercaDe(null);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,10 +149,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
-    public void lanzarAcercaDe(View view) {
-        Intent i = new Intent(this, AcercaDeActivity.class);
-        startActivity(i);
-    }
+
 
     /*public void lanzarVistaLugar(View view){
         Intent i = new Intent(this, VistaLugarActivity.class);

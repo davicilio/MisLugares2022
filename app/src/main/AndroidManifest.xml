@@ -38,6 +38,9 @@
         <activity
             android:name=".presentacion.EdicionLugarActivity"
             android:exported="true"></activity>
+        <activity
+            android:name=".presentacion.PreferenciasActivity"
+            android:exported="true"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
