@@ -26,7 +26,7 @@ import java.util.OptionalInt;
 public class CasosUsoLugar {
     private Activity actividad;
     private LugaresBD lugares;
-    public static AdaptadorLugares adaptador;
+    private AdaptadorLugares adaptador;
 
     public final static int RESULTADO_EDITAR = 1;
 
@@ -39,9 +39,10 @@ public class CasosUsoLugar {
 
     }
 
-    public CasosUsoLugar(Activity actividad, LugaresBD lugares) {
+    public CasosUsoLugar(Activity actividad, LugaresBD lugares, AdaptadorLugares adaptador) {
         this.actividad = actividad;
         this.lugares = lugares;
+        this.adaptador = adaptador;
     }
 
     //OPERACIONES BÁSICAS
@@ -53,12 +54,20 @@ public class CasosUsoLugar {
         actividad.startActivity(i);
     }
 
-    public void actualizaPosLugar(int pos, Lugar lugar) {
-        int id = adaptador.idPosicion(pos);
-        guardar(actividad, lugares, id, lugar);
+    public AdaptadorLugares getAdaptador() {
+        return adaptador;
     }
 
-    public static void guardar(Activity actividad, LugaresBD lugares, int id, Lugar nuevoLugar) {
+    public void actualizaPosLugar(int id, Lugar lugar) {
+        // int id = adaptador.idPosicion(pos);
+        lugares.actualiza(id, lugar);
+        adaptador.setCursor(lugares.extraeCursor());
+        adaptador.notifyDataSetChanged();
+        //guardar(actividad, lugares, id, lugar);
+    }
+
+    public void guardar(Activity actividad, LugaresBD lugares, int id, Lugar nuevoLugar) {
+        AdaptadorLugares adaptador = getAdaptador();
         lugares.actualiza(id, nuevoLugar);
         adaptador.setCursor(lugares.extraeCursor());
         CasoDeUsoNavegacion.navegarA(actividad, VistaLugarActivity.class, OptionalInt.of(id), "id");
@@ -68,8 +77,8 @@ public class CasosUsoLugar {
 
     public void borrar(final int id) {
         lugares.borrar(lugares.elemento(id));
-        /*adaptador.setCursor(lugares.extraeCursor());
-        adaptador.notifyDataSetChanged();*/
+        adaptador.setCursor(lugares.extraeCursor());
+        adaptador.notifyDataSetChanged();
         actividad.finish();
 
     }

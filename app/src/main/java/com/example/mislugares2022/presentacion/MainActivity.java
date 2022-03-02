@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //        adaptador = new AdaptadorLugares(lugares,this, lugares.extraeCursor());
         lugares = (LugaresBD) ((Aplicacion) getApplication()).getLugares();
         adaptador = ((Aplicacion) getApplication()).adaptador;
-        usoLugar = new CasosUsoLugar(this, lugares);
+        usoLugar = new CasosUsoLugar(this, lugares, adaptador);
 
 
         recyclerView = findViewById(R.id.recycler_view);

@@ -100,7 +100,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         id = extras.getInt("id", 0);
         lugares = ((Aplicacion) getApplication()).getLugares();
         adaptador = ((Aplicacion) getApplication()).adaptador;
-        usoLugar = new CasosUsoLugar(this, lugares);
+        usoLugar = new CasosUsoLugar(this, lugares, adaptador);
         lugar = lugares.elemento((int) id);
         imageView = (ImageView) findViewById(R.id.foto);
         actualizaVistas();
@@ -158,6 +158,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                     public void onRatingChanged(RatingBar ratingBar,
                                                 float valor, boolean fromUser) {
                         lugar.setValoracion(valor);
+                        usoLugar.actualizaPosLugar((int) id, lugar);
                         //usoLugar.guardar(VistaLugarActivity.this,lugares,(int)id,lugar);
                     }
                 });

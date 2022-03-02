@@ -37,7 +37,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
         setContentView(R.layout.edicion_lugar_content);
         lugares = ((Aplicacion) getApplication()).lugares;
         adaptador = ((Aplicacion) getApplication()).adaptador;
-        usoLugar = new CasosUsoLugar(this, lugares);
+        usoLugar = new CasosUsoLugar(this, lugares, adaptador);
         Bundle extras = getIntent().getExtras();
 
         id = extras.getInt("id", -1);
