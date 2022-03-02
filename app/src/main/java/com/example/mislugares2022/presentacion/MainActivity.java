@@ -129,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
             lanzarAcercaDe(null);
             return true;
         }
+        if (id == R.id.menu_mapa) {
+            Intent intent = new Intent(this, MapaActivity.class);
+            startActivity(intent);
+        }
         return false;
     }
 
