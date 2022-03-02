@@ -16,7 +16,6 @@ import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
 import com.example.mislugares2022.modelo.LugaresBD;
-import com.example.mislugares2022.modelo.RepositorioLugares;
 import com.example.mislugares2022.presentacion.EdicionLugarActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
 
@@ -27,7 +26,7 @@ import java.util.OptionalInt;
 public class CasosUsoLugar {
     private Activity actividad;
     private LugaresBD lugares;
-    private AdaptadorLugares adaptador;
+    public static AdaptadorLugares adaptador;
 
     public final static int RESULTADO_EDITAR = 1;
 
@@ -54,11 +53,16 @@ public class CasosUsoLugar {
         actividad.startActivity(i);
     }
 
+    public void actualizaPosLugar(int pos, Lugar lugar) {
+        int id = adaptador.idPosicion(pos);
+        guardar(actividad, lugares, id, lugar);
+    }
 
-    public static void guardar(Activity actividad, RepositorioLugares lugares, int id, Lugar nuevoLugar) {
+    public static void guardar(Activity actividad, LugaresBD lugares, int id, Lugar nuevoLugar) {
         lugares.actualiza(id, nuevoLugar);
-
+        adaptador.setCursor(lugares.extraeCursor());
         CasoDeUsoNavegacion.navegarA(actividad, VistaLugarActivity.class, OptionalInt.of(id), "id");
+        adaptador.notifyDataSetChanged();
         actividad.finish();
     }
 

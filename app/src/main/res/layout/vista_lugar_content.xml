@@ -55,7 +55,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo de direccion"
-                android:src="@drawable/deporte" />
+                android:src="@android:drawable/ic_menu_myplaces" />
 
             <TextView
                 android:id="@+id/direccion"
@@ -77,7 +77,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo del telefono"
-                android:src="@drawable/espectaculos" />
+                android:src="@android:drawable/ic_menu_call" />
 
             <TextView
                 android:id="@+id/telefono"
@@ -99,7 +99,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo de la url"
-                android:src="@drawable/gasolinera" />
+                android:src="@android:drawable/ic_menu_mapmode" />
 
             <TextView
                 android:id="@+id/url"
@@ -120,7 +120,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo del comentario"
-                android:src="@drawable/bar" />
+                android:src="@android:drawable/ic_menu_info_details" />
 
             <TextView
                 android:id="@+id/comentario"
@@ -141,7 +141,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo de la fecha"
-                android:src="@drawable/hotel" />
+                android:src="@android:drawable/ic_menu_my_calendar" />
 
             <TextView
                 android:id="@+id/fecha"
@@ -162,7 +162,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="logo de la hora"
-                android:src="@drawable/gasolinera" />
+                android:src="@android:drawable/ic_menu_recent_history" />
 
             <TextView
                 android:id="@+id/hora"
@@ -206,7 +206,6 @@
                     android:contentDescription="logo cámara"
                     android:onClick="tomarFoto"
                     android:src="@android:drawable/ic_menu_camera" />
-                <!--TODO PARA AÑADIR LAS FOTOS-->
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"

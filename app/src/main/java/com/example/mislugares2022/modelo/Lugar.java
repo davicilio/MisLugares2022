@@ -39,7 +39,7 @@ public class Lugar implements Serializable {
         posicion = new GeoPunto(longitud, latitud);
         this.id = id;
         this.tipo = tipo;
-        this.foto = ConstantesModelo.FOTO_INICIAL;
+        //this.foto = foto;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
