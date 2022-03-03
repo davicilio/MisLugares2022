@@ -83,7 +83,6 @@ public class VistaLugarActivity extends AppCompatActivity {
     private CasosUsoLugar usoLugar;
     private long id = -1;
     private Lugar lugar;
-    private ImageView imageView;
     private AdaptadorLugares adaptador;
     private ImageView foto;
     private Uri uriUltimaFoto;
@@ -102,7 +101,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         adaptador = ((Aplicacion) getApplication()).adaptador;
         usoLugar = new CasosUsoLugar(this, lugares, adaptador);
         lugar = lugares.elemento((int) id);
-        imageView = (ImageView) findViewById(R.id.foto);
+        foto = (ImageView) findViewById(R.id.foto);
         actualizaVistas();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -132,7 +131,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         TextView nombre = findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = findViewById(R.id.logo_tipo);
-        //logo_tipo.setImageResource(lugar.getTipo().getRecurso());
+        //logo_tipo.setImageResource(lugar.getTipo().getRecurso());//TODO
         TextView tipo = findViewById(R.id.tipo);
         tipo.setText(lugar.getTipo().getTexto());
         TextView direccion = findViewById(R.id.direccion);
@@ -162,7 +161,7 @@ public class VistaLugarActivity extends AppCompatActivity {
                         //usoLugar.guardar(VistaLugarActivity.this,lugares,(int)id,lugar);
                     }
                 });
-        //usoLugar.visualizarFoto(lugar, foto);
+        usoLugar.visualizarFoto(lugar, foto);
     }
 
     @Override
@@ -234,8 +233,9 @@ public class VistaLugarActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Foto no cargada", Toast.LENGTH_LONG).show();
             }
+
         } else if (requestCode == RESULTADO_FOTO) {
-            if (resultCode == Activity.RESULT_OK && uriUltimaFoto != null) {
+            if (resultCode == Activity.RESULT_OK && uriUltimaFoto.toString().trim() != null) {
                 lugar.setFoto(uriUltimaFoto.toString());
                 usoLugar.ponerFoto((int) id, lugar.getFoto(), foto);
             } else {

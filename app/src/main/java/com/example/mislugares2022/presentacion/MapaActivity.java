@@ -15,7 +15,7 @@ import com.example.mislugares2022.R;
 import com.example.mislugares2022.aplicacion.Aplicacion;
 import com.example.mislugares2022.modelo.GeoPunto;
 import com.example.mislugares2022.modelo.Lugar;
-import com.example.mislugares2022.modelo.RepositorioLugares;
+import com.example.mislugares2022.modelo.LugaresBD;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,7 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapaActivity extends FragmentActivity
         implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
     private GoogleMap mapa;
-    private RepositorioLugares lugares;
+    private LugaresBD lugares;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MapaActivity extends FragmentActivity
             mapa.getUiSettings().setCompassEnabled(true);
         }
         if (lugares.tamanyo() > 0) {
-            GeoPunto p = lugares.elemento(0).getPosicion();
+            GeoPunto p = lugares.elemento(1).getPosicion();
             mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(p.getLatitud(), p.getLongitud()), 12));
         }
@@ -80,7 +80,7 @@ public class MapaActivity extends FragmentActivity
             if (lugares.elemento(id).getNombre()
                     .equals(marker.getTitle())) {
                 Intent intent = new Intent(this, VistaLugarActivity.class);
-                intent.putExtra("pos", id);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             }

@@ -1,7 +1,10 @@
 package com.example.mislugares2022.casosdeuso;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -20,7 +23,10 @@ import com.example.mislugares2022.presentacion.EdicionLugarActivity;
 import com.example.mislugares2022.presentacion.VistaLugarActivity;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.OptionalInt;
 
 public class CasosUsoLugar {
@@ -154,12 +160,16 @@ public class CasosUsoLugar {
         visualizarFoto(lugar, imageView);
     }
 
+    /*public void visualizarFoto(Lugar lugar, ImageView imageView) {
+        if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
+            imageView.setImageURI(Uri.parse(lugar.getFoto()));
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }*/
     public void visualizarFoto(Lugar lugar, ImageView imageView) {
         if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
-            imageView
-                    .setImageURI(
-                            Uri.parse(
-                                    lugar.getFoto()));
+            imageView.setImageBitmap(reduceBitmap(actividad, lugar.getFoto(), 1024, 1024));
         } else {
             imageView.setImageBitmap(null);
         }
@@ -189,5 +199,34 @@ public class CasosUsoLugar {
         }
     }
 
+    private Bitmap reduceBitmap(Context contexto, String uri,
+                                int maxAncho, int maxAlto) {
+        try {
+            InputStream input = null;
+            Uri u = Uri.parse(uri);
+            if (u.getScheme().equals("http") || u.getScheme().equals("https")) {
+                input = new URL(uri).openStream();
+            } else {
+                input = contexto.getContentResolver().openInputStream(u);
+            }
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            options.inSampleSize = (int) Math.max(
+                    Math.ceil(options.outWidth / maxAncho),
+                    Math.ceil(options.outHeight / maxAlto));
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeStream(input, null, options);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(contexto, "Fichero/recurso de imagen no encontrado",
+                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            Toast.makeText(contexto, "Error accediendo a imagen",
+                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
