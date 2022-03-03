@@ -156,7 +156,10 @@ public class CasosUsoLugar {
 
     public void visualizarFoto(Lugar lugar, ImageView imageView) {
         if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
-            imageView.setImageURI(Uri.parse(lugar.getFoto()));
+            imageView
+                    .setImageURI(
+                            Uri.parse(
+                                    lugar.getFoto()));
         } else {
             imageView.setImageBitmap(null);
         }

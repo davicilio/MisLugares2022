@@ -129,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
             lanzarAcercaDe(null);
             return true;
         }
+        if (id == R.id.menu_buscar) {
+            lanzarVistaLugar(null);
+            return true;
+        }
         if (id == R.id.menu_mapa) {
             Intent intent = new Intent(this, MapaActivity.class);
             startActivity(intent);
@@ -178,8 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         int id = Integer.parseInt(entrada.getText().toString());
-                        Intent i = new Intent(MainActivity.this, EdicionLugarActivity.class);
-                        i.putExtra("id", (long) 0);
+                        Intent i = new Intent(MainActivity.this, VistaLugarActivity.class);
+                        i.putExtra("id", id);
                         startActivity(i);
                     }
                 })
