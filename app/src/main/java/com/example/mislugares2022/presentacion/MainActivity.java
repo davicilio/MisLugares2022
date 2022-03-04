@@ -1,7 +1,6 @@
 package com.example.mislugares2022.presentacion;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -121,8 +120,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, PreferenciasActivity.class);
-            ((Activity) this).startActivityForResult(i, PREFERENCIAS);
+            lanzarPreferencias(null);
             return true;
         }
         if (id == R.id.acercaDe) {
