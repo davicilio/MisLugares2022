@@ -11,7 +11,7 @@ public enum TipoLugar implements Serializable {
     ESPECTACULO("Espectáculo", 5),
     HOTEL("Hotel", 6),
     COMPRAS("Compras", 7),
-    EDUCACION("educacion", 8),
+    EDUCACION("Educación", 8),
     DEPORTE("Deporte", 9),
     NATURALEZA("Naturaleza", 10),
     GASOLINERA("Gasolinera", 11);
