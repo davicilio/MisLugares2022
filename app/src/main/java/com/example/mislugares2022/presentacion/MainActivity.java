@@ -82,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
         adaptador.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = recyclerView.getChildAdapterPosition(v);
+                int pos = recyclerView.getChildAdapterPosition(v);//TODO cambiar que coja por pos a que coja por id
+                int id = adaptador.idPosicion(pos);
+                usoLugar.mostrar(MainActivity.this, id);
+                /*
+                * Lugar lugar1 = lugares.elemento(pos);
                 usoLugar.mostrar(MainActivity.this, pos + 1);
+                * */
             }
         });
         usoPermisos = new CasoDeUsoPermisos(MainActivity.this, this);
