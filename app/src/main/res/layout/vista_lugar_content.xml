@@ -210,7 +210,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:contentDescription="logo galería"
-                    android:onClick="galeria"
+                    android:onClick="ponerDeGaleria"
                     android:src="@android:drawable/ic_menu_gallery" />
 
                 <ImageView

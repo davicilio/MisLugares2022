@@ -194,6 +194,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         usoLocalizacion.activar();
+        //actualizar lista recycled view
+
     }
 
     @Override

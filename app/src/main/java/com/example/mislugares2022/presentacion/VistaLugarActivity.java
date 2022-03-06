@@ -120,11 +120,11 @@ public class VistaLugarActivity extends AppCompatActivity {
         });
     }
 
-    public void galeria(View view) {
+    /*public void galeria(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, RESULTADO_GALERIA);
-    }
+    }*/
 
     public void actualizaVistas() {
 
@@ -192,15 +192,18 @@ public class VistaLugarActivity extends AppCompatActivity {
 
     public void ponerDeGaleria(View view) {
         usoLugar.ponerDeGaleria(RESULTADO_GALERIA);
+        usoLugar.actualizaPosLugar((int) id, lugar);
     }
 
     public void tomarFoto(View view) {
         uriUltimaFoto = usoLugar.tomarFoto(RESULTADO_FOTO);
+        usoLugar.actualizaPosLugar((int) id, lugar);
     }
 
 
     public void eliminarFoto(View view) {
-        usoLugar.ponerFoto((int) id, "", foto);
+        lugar = usoLugar.ponerFoto((int) id, "", foto);
+        usoLugar.actualizaPosLugar((int) id, lugar);
     }
 
 
@@ -224,12 +227,16 @@ public class VistaLugarActivity extends AppCompatActivity {
         if (requestCode == RESULTADO_EDITAR) {
             //int id = adaptador.idPosicion(pos);
             lugar = lugares.elemento((int) id);
+            usoLugar.actualizaPosLugar((int) id, lugar);
             //adaptador.cursor = lugares.extraeCursor();
             //pos = adaptador.posicionId(_id);
             actualizaVistas();
         } else if (requestCode == RESULTADO_GALERIA) {
             if (resultCode == Activity.RESULT_OK) {
-                usoLugar.ponerFoto((int) id, data.getDataString(), foto);
+                //usoLugar.ponerDeGaleria(RESULTADO_GALERIA);
+                lugar.setFoto(data.getDataString());
+                lugar = usoLugar.ponerFoto((int) id, lugar.getFoto(), foto);
+                usoLugar.actualizaPosLugar((int) id, lugar);
             } else {
                 Toast.makeText(this, "Foto no cargada", Toast.LENGTH_LONG).show();
             }
@@ -237,7 +244,8 @@ public class VistaLugarActivity extends AppCompatActivity {
         } else if (requestCode == RESULTADO_FOTO) {
             if (resultCode == Activity.RESULT_OK && uriUltimaFoto.toString().trim() != null) {
                 lugar.setFoto(uriUltimaFoto.toString());
-                usoLugar.ponerFoto((int) id, lugar.getFoto(), foto);
+                lugar = usoLugar.ponerFoto((int) id, lugar.getFoto(), foto);
+                usoLugar.actualizaPosLugar((int) id, lugar);
             } else {
                 Toast.makeText(this, "Error en captura", Toast.LENGTH_LONG).show();
             }
@@ -254,6 +262,5 @@ public class VistaLugarActivity extends AppCompatActivity {
 
 
     }
-
 
 }

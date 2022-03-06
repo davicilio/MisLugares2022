@@ -82,6 +82,7 @@ public class CasosUsoLugar {
     }
 
     public void borrar(final int id) {
+        AdaptadorLugares adaptador = getAdaptador();
         lugares.borrar(lugares.elemento(id));
         adaptador.setCursor(lugares.extraeCursor());
         adaptador.notifyDataSetChanged();
@@ -154,10 +155,11 @@ public class CasosUsoLugar {
     }
 
 
-    public void ponerFoto(int pos, String uri, ImageView imageView) {
-        Lugar lugar = lugares.elemento(pos);
+    public Lugar ponerFoto(int id, String uri, ImageView imageView) {
+        Lugar lugar = lugares.elemento(id);
         lugar.setFoto(uri);
         visualizarFoto(lugar, imageView);
+        return lugar;
     }
 
     /*public void visualizarFoto(Lugar lugar, ImageView imageView) {
@@ -167,16 +169,23 @@ public class CasosUsoLugar {
             imageView.setImageBitmap(null);
         }
     }*/
-    public void visualizarFoto(Lugar lugar, ImageView imageView) {
+    /*public void visualizarFoto(Lugar lugar, ImageView imageView) {
         if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
             imageView.setImageBitmap(reduceBitmap(actividad, lugar.getFoto(), 1024, 1024));
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }*/
+    public void visualizarFoto(Lugar lugar, ImageView imageView) {
+        if (lugar.getFoto() != null && !lugar.getFoto().isEmpty()) {
+            imageView.setImageURI(Uri.parse(lugar.getFoto()));
         } else {
             imageView.setImageBitmap(null);
         }
     }
 
 
-    public Uri tomarFoto(int codidoSolicitud) {
+    public Uri tomarFoto(int codigoSolicitud) {
         try {
             Uri uriUltimaFoto;
             File file = File.createTempFile(
@@ -190,7 +199,7 @@ public class CasosUsoLugar {
             }
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uriUltimaFoto);
-            actividad.startActivityForResult(intent, codidoSolicitud);
+            actividad.startActivityForResult(intent, codigoSolicitud);
             return uriUltimaFoto;
         } catch (IOException ex) {
             Toast.makeText(actividad, "Error al crear fichero de imagen",
