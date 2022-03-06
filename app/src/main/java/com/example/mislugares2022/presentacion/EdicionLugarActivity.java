@@ -131,7 +131,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.accion_cancelar:
-                if (id != -1) lugares.borrar(lugar);
+                if (id != -1) lugares.borrar(lugar.getId());
                 finish();
                 return true;
             default:

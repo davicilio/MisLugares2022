@@ -130,9 +130,7 @@ public class VistaLugarActivity extends AppCompatActivity {
         TextView nombre = findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = findViewById(R.id.logo_tipo);
-
         //logo_tipo.setImageResource(lugar.getTipo().getRecurso());
-
         logo_tipo.setImageResource(AdaptadorTipoLugarDrawable.getRecursoDrawable(lugar.getTipo()));
         TextView tipo = findViewById(R.id.tipo);
         tipo.setText(lugar.getTipo().getTexto());

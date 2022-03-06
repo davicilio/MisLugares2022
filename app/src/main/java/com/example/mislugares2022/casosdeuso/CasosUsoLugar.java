@@ -83,7 +83,7 @@ public class CasosUsoLugar {
 
     public void borrar(final int id) {
         AdaptadorLugares adaptador = getAdaptador();
-        lugares.borrar(lugares.elemento(id));
+        lugares.borrar(id);
         adaptador.setCursor(lugares.extraeCursor());
         adaptador.notifyDataSetChanged();
         actividad.finish();
@@ -140,7 +140,7 @@ public class CasosUsoLugar {
             lugar.setValoracion(0);
             lugar.setNombre("");
             lugar.setComentario("");
-            lugar.setTelefono(0);
+            //lugar.setTelefono(0);
         }
         Intent i = new Intent(actividad, EdicionLugarActivity.class);
         i.putExtra("id", id);

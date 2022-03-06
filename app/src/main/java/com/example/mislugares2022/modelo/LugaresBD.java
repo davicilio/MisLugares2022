@@ -106,8 +106,8 @@ public class LugaresBD extends SQLiteOpenHelper implements RepositorioLugares {
     }
 
     @Override
-    public void borrar(Lugar lugar) {
-        getWritableDatabase().execSQL("DELETE FROM lugares WHERE id = " + lugar.getId());
+    public void borrar(int id) {
+        getWritableDatabase().execSQL("DELETE FROM lugares WHERE id = " + id);
         /*Cursor c = getReadableDatabase().rawQuery(
                 "SELECT id FROM lugares WHERE fecha = " + lugar.getFecha(), null);
         c.close();*/

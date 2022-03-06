@@ -23,7 +23,7 @@ public interface RepositorioLugares {
 
     int nuevo(); //Añade un elemento en blanco y devueve su id
 
-    void borrar(Lugar lugar);  //Elimina el elemento con el id indicado
+    void borrar(int id);  //Elimina el elemento con el id indicado
 
     int tamanyo();  //Devuelve el número de elementos
 
