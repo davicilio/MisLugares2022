@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         adaptador.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = recyclerView.getChildAdapterPosition(v);//TODO cambiar que coja por pos a que coja por id
-                int id = adaptador.idPosicion(pos);
+                //int pos = recyclerView.getChildAdapterPosition(v);
+                int id = adaptador.idPosicion(recyclerView.getChildAdapterPosition(v));
                 usoLugar.mostrar(MainActivity.this, id);
                 /*
                 * Lugar lugar1 = lugares.elemento(pos);
